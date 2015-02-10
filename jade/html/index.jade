@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title App
+    link(rel='stylesheet', href='/css/app.css')
+    link(rel='shortcut icon', type='image/ico', href='/favicon.ico')
+    if (build)
+      script(src='/js/main.js', async)
+    else
+      script(src='/js/lib/require.js', data-main='/js/main', async)
+  body
+    #container
+      - for (var x = 0; x < 20; x++)
+        - if (x === 10 || x === 12 || x === 9 || x === 5)
+          .item.item_double
+            .item__content
+        - else
+          .item
+            .item__content

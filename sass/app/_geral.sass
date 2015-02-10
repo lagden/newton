@@ -1,0 +1,59 @@
+*
+  box-sizing: border-box
+
+// Geral
+// -------------------------
+html, body
+  margin: 0
+  padding: 0
+
+html
+  +monospace
+  min-height: 100%
+
+  color: $gray
+  background:
+    color: $white
+
+body
+  position: relative
+
+$transitionDuration: 0.5
+
+#container
+  @extend .cf
+  width: 100%
+  background: gray
+  position: relative
+
+$gutter: 5
+$size: 120 - ($gutter * 2)
+
+.item
+  margin: #{$gutter}px
+  float: left
+
+
+.item,
+.item__content
+  width: #{$size}px
+  height: #{$size}px
+
+.item__content
+  background-color: red
+  transition: width #{$transitionDuration}s, height #{$transitionDuration}s, background-color #{$transitionDuration}s
+
+.item_double
+  &,
+  & > .item__content
+    width: #{($size * 2) + ($gutter * 2)}px
+  & > .item__content
+    background-color: green
+
+.item_grow
+  &,
+  & > .item__content
+    width: #{($size * 3) + ($gutter * 4)}px
+    height: #{($size * 2) + ($gutter * 2)}px
+  & > .item__content
+    background-color: blue

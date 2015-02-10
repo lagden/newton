@@ -1,0 +1,124 @@
+// For image replacement
+.ir
+    text-indent: 200%
+    white-space: nowrap
+    overflow: hidden
+
+// Hide from both screenreaders and browsers: h5bp.com/u
+.hidden
+    display: none !important
+    visibility: hidden
+
+// Hide only visually, but have it available for screenreaders: h5bp.com/v
+.visuallyhidden
+    border: 0
+    clip: rect(0 0 0 0)
+    height: 1px
+    margin: -1px
+    overflow: hidden
+    padding: 0
+    position: absolute
+    width: 1px
+    // Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p
+    &.focusable
+        &:active,
+        &:focus
+            clip: auto
+            height: auto
+            margin: 0
+            overflow: visible
+            position: static
+            width: auto
+
+// Hide visually and from screenreaders, but maintain layout
+.invisible
+    visibility: hidden
+
+.invisible_absolute
+    @extend .invisible
+    position: absolute
+
+// Put element on center
+.absoluteCenter
+    transform: translate3d(-50%, -50%, 0)
+    left: 50%
+    top: 50%
+    position: absolute
+
+// Complementos simples
+.float_right
+    float: right !important
+.float_left
+    float: left !important
+.float_none
+    float: none !important
+
+.text_left
+    text-align: left !important
+.text_center
+    text-align: center !important
+.text_right
+    text-align: right !important
+
+.center
+    margin-left: auto !important
+    margin-right: auto !important
+
+.inline-block
+    display: inline-block
+
+.cf
+    +cf
+
+.bb
+    box-sizing: border-box
+
+.bold
+    font-weight: bold
+
+.clear
+    clear: both
+    float: none
+
+.caps
+    text-transform: uppercase !important
+
+.hand
+    cursor: pointer !important
+
+$verticalAligns: "middle" "top" "baseline" "bottom"
+@each $c in $verticalAligns
+    .vertical-align_#{$c}
+        vertical-align: #{$c}
+
+// Margins e Paddings
+// Usage: <div class="mar-10 pad-b-20">Yeahh</div>
+@each $c in $marginPadding
+    $margin: nth($c, 1)
+    $m: nth($c, 2)
+    $padding: nth($c, 3)
+    $pad: nth($c, 4)
+    $cc: 0
+    @while $cc <= 35
+        .#{$m}-#{$cc}
+            +attr-size($margin, $cc, !important)
+        .#{$pad}-#{$cc}
+            +attr-size($padding, $cc, !important)
+        $cc: $cc + 5
+
+// Cores
+// Usage: <div class="bg-color-black txt-color-white">Yeahh</div>
+@each $c in $lista_cores
+    $k: nth($c, 1)
+    $v: nth($c, 2)
+    .bg-color_#{$k}
+        background-color: #{$v} !important
+    .txt-color_#{$k}
+        color: #{$v} !important
+
+// Widths
+$widthCC: 5
+@while $widthCC <= 100
+    .width-#{$widthCC}
+        width: #{$widthCC * 1%}
+    $widthCC: $widthCC + 5

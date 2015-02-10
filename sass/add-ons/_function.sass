@@ -1,0 +1,8 @@
+@function strip-units($number)
+    @return $number / ($number * 0 + 1)
+
+@function relative-size($size, $base: 16, $unit: rem)
+    @return #{strip-units($size) / strip-units($base)}$unit
+
+@function dpi2dppx($dpi)
+    @return #{strip-units($dpi) / 96}dppx

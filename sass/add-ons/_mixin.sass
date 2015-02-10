@@ -1,0 +1,85 @@
+// Size
+=attr-size($attr, $sizes, $important: null, $unit: rem, $base: 16)
+    $ie: null !default
+    $others: null !default
+    @each $n in $sizes
+        @if type-of($n) == string or type-of($n) == color
+            $ie: join($ie, $n)
+            $others: join($others, $n)
+        @else
+            $ie: join($ie, #{strip-units($n)}px)
+            $others: join($others, #{relative-size($n, $base, $unit)})
+    #{$attr}: join($ie, $important)
+    #{$attr}: join($others, $important)
+
+=unstyled-link
+    color: inherit
+    text-decoration: inherit
+    cursor: inherit
+    &:active,
+    &:focus
+        outline: none
+
+// Clearfix
+=cf
+    &:after
+        content: ""
+        display: table
+        clear: both
+
+// Font family Default
+=sans-serif($prepend: null)
+    $list: "Helvetica Neue", Helvetica, sans-serif
+    font-family: join($prepend, $list, comma)
+
+=serif($prepend: null)
+    $list: "Times New Roman", Times, serif
+    font-family: join($prepend, $list, comma)
+
+=monospace($prepend: null)
+    $list: Consolas, "Liberation Mono", Courier, monospace
+    font-family: join($prepend, $list, comma)
+
+// Placeholder text
+=placeholder($color: $placeholderText)
+    &:-moz-placeholder
+        color: $color
+    &:-ms-input-placeholder
+        color: $color
+    &::-webkit-input-placeholder
+        color: $color
+
+=retina()
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: dpi2dppx(144))
+        @content
+
+// Sprites
+=generate-sprites($name, $map, $map-retina: null)
+    $url: sprite-url($map)
+    $path: sprite-path($map)
+    $width: image-width($path)
+    $height: image-height($path)
+
+    $url-retina: if($map-retina != null, sprite-url($map-retina), false)
+
+    @each $s in sprite_names($map)
+        .#{$name}-#{$s}
+            background:
+                image: $url
+                repeat: no-repeat
+                position: sprite-position($map, $s)
+            width: image-width(sprite-file($map, $s))
+            height: image-height(sprite-file($map, $s))
+
+    @if $url-retina != false
+        +retina
+            [class*="#{$name}-"],
+            [class*=" #{$name}-"]
+                background:
+                    image: $url-retina
+                    size: $width $height
+
+// keyframes mixin
+=keyframes($name)
+    @keyframes #{$name}
+        @content

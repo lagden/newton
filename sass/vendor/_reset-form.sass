@@ -1,0 +1,156 @@
+// Default font for form elements.
+//----------------------------------------------------------------------------------------------------
+
+$form-font-stack: Arial, "Liberation Sans", FreeSans, sans-serif !default
+$form-font-size: 13px !default
+
+// Form Element Reset.
+//----------------------------------------------------------------------------------------------------
+
+input[type="search"]::-webkit-search-decoration
+    display: none
+
+input[type="radio"],
+input[type="checkbox"]
+    margin: 0
+
+button,
+a.button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"],
+input[type="image"]
+    background: none
+    border: 0
+    cursor: pointer
+    display: inline-block
+    overflow: visible
+    margin: 0
+    outline: 0
+    padding: 0
+    vertical-align: top
+    text-align: center
+    text-decoration: none
+    width: auto
+
+    // Undo WebKit defaults
+    -webkit-appearance: none
+
+    // Adjust background display
+    background-clip: padding-box
+
+    // Remove rounded corners
+    border-radius: 0
+
+    // Change box model
+    box-sizing: border-box
+
+    // Helvetica Neue present, because it works better
+    // for line-height on buttons than Arial, on OS X.
+    font-size: $form-font-size
+    font-family: $form-font-stack
+
+button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"]
+    line-height: normal !important
+
+textarea,
+select,
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"]
+    background: none
+    border: 0
+    margin: 0
+    outline: 0
+    padding: 0
+    text-align: left
+    vertical-align: top
+    font-size: $form-font-size
+    font-family: $form-font-stack
+
+    // Undo WebKit defaults
+    -webkit-appearance: none
+
+    // Adjust background display
+    background-clip: padding-box
+
+    // Remove rounded corners
+    border-radius: 0
+
+    // Change box model
+    box-sizing: border-box
+
+    // Get rid of up/down, plus/minus buttons
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+        -webkit-appearance: none
+
+button[disabled],
+input[disabled],
+select[disabled],
+select[disabled] option,
+select[disabled] optgroup,
+textarea[disabled]
+    // user-select: none
+    cursor: default
+    opacity: 0.25
+
+textarea
+    min-height: 50px
+    overflow: auto
+    resize: vertical
+    width: 100%
+
+optgroup
+    font-style: normal
+    font-weight: normal
+    font-family: $form-font-stack
+
+// For IE
+select::-ms-expand
+    // Get rid of drop-down arrow
+    display: none
+
+// For Firefox
+@-moz-document url-prefix()
+    input,
+    button,
+    select,
+    textarea
+        &:invalid
+            box-shadow: none
+        &::-moz-focus-inner
+            border: 0
+            padding: 0
+
+select,
+select[size="0"],
+select[size="1"]
+    +appearance(none)
+    appearance: none
+    background-image: inline-svg-image('select-arrow-down.svg')
+    background-repeat: no-repeat
+    background-position: calc(100% - 10px) center
+    background-size: 10px
+
+    // For WebKit.
+    @media (-webkit-min-device-pixel-ratio: 0)
+        padding-right: 25px
+
+// No arrow for multi-select
+select[size],
+select[multiple]
+    background-image: none
