@@ -3,20 +3,19 @@ Newton Mode
 
 Isotope Layout
 
----
+## TODO
 
-**TODO:**
+- [ ] Fork no isotope
+- [ ] add no `layout-mode.js` na linha 32 - `'_positionItem',`
+- [ ] no `isotope.js` na linha 450
 
-- Fork no isotope
-- add no `layout-mode.js` na linha 32 - `'_positionItem',`
-- add no `isotope.js` na linha 450
+```javascript
+Isotope.prototype._positionItem = function(item, x, y, isInstant) {
+  return this._mode()._positionItem(item, x, y, isInstant);
+};
+```
 
-    Isotope.prototype._positionItem = function(item, x, y, isInstant) {
-      return this._mode()._positionItem(item, x, y, isInstant);
-    };
-
-- trocar o bower para lagden/isotope
-
+- [ ] trocar o bower para lagden/isotope
 
 ## Author
 
