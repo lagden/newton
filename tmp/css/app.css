@@ -1205,7 +1205,7 @@ html {
   font-family: Consolas, "Liberation Mono", Courier, monospace;
   min-height: 100%;
   color: #6c6c6c;
-  background-color: white;
+  background-color: gray;
 }
 
 body {
@@ -1230,21 +1230,33 @@ body {
 }
 
 .item__content {
-  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blue;
   transition: width 0.5s, height 0.5s, background-color 0.5s;
 }
 
-.item_double, .item_double > .item__content {
+.item_double,
+.item_double > .item__content {
   width: 230px;
 }
 .item_double > .item__content {
   background-color: green;
 }
 
-.item_grow, .item_grow > .item__content {
+.item_explode > .item__content {
+  background-color: red;
+  color: white;
+  text-align: center;
+  cursor: no-drop;
+}
+
+.item_grow,
+.item_grow > .item__content {
   width: 350px;
   height: 230px;
 }
 .item_grow > .item__content {
-  background-color: blue;
+  background-color: yellow;
 }

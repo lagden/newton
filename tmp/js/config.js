@@ -4,7 +4,9 @@ define('config', function() {
     baseUrl: '/js/lib',
     paths: {
       app: '../app',
-      templates: '../templates'
+      templates: '../templates',
+      support: '../support',
+      TweenMax: './gsap/src/uncompressed/TweenMax'
     }
   });
 });

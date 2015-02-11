@@ -6,5 +6,7 @@ define 'config', ->
     paths:
       app: '../app'
       templates: '../templates'
+      support: '../support'
+      TweenMax: './gsap/src/uncompressed/TweenMax'
 
   return

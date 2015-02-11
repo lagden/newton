@@ -13,7 +13,7 @@ html
 
   color: $gray
   background:
-    color: $white
+    color: gray
 
 body
   position: relative
@@ -33,27 +33,36 @@ $size: 120 - ($gutter * 2)
   margin: #{$gutter}px
   float: left
 
-
 .item,
 .item__content
   width: #{$size}px
   height: #{$size}px
 
 .item__content
-  background-color: red
+  display: flex
+  align-items: center
+  justify-content: center
+  background-color: blue
   transition: width #{$transitionDuration}s, height #{$transitionDuration}s, background-color #{$transitionDuration}s
 
 .item_double
   &,
-  & > .item__content
+  > .item__content
     width: #{($size * 2) + ($gutter * 2)}px
-  & > .item__content
+  > .item__content
     background-color: green
+
+.item_explode
+  > .item__content
+    background-color: red
+    color: white
+    text-align: center
+    cursor: no-drop
 
 .item_grow
   &,
-  & > .item__content
+  > .item__content
     width: #{($size * 3) + ($gutter * 4)}px
     height: #{($size * 2) + ($gutter * 2)}px
-  & > .item__content
-    background-color: blue
+  > .item__content
+    background-color: yellow
