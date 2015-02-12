@@ -5,6 +5,7 @@ build/*
 dev/js/*
 dev/css/*
 dev/**/*.html
+bin
 
 # Others
 cgi-bin
