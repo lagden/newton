@@ -1204,7 +1204,7 @@ html, body {
 html {
   font-family: Consolas, "Liberation Mono", Courier, monospace;
   min-height: 100%;
-  color: #6c6c6c;
+  color: black;
   background-color: gray;
 }
 
@@ -1216,6 +1216,7 @@ body {
   width: 100%;
   background: gray;
   position: relative;
+  overflow: hidden;
 }
 
 .item {
@@ -1255,7 +1256,6 @@ body {
 .item_grow,
 .item_grow > .item__content {
   width: 350px;
-  height: 230px;
 }
 .item_grow > .item__content {
   background-color: yellow;

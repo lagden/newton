@@ -11,7 +11,7 @@ html
   +monospace
   min-height: 100%
 
-  color: $gray
+  color: $black
   background:
     color: gray
 
@@ -25,6 +25,7 @@ $transitionDuration: 0.5
   width: 100%
   background: gray
   position: relative
+  overflow: hidden
 
 $gutter: 5
 $size: 120 - ($gutter * 2)
@@ -63,6 +64,6 @@ $size: 120 - ($gutter * 2)
   &,
   > .item__content
     width: #{($size * 3) + ($gutter * 4)}px
-    height: #{($size * 2) + ($gutter * 2)}px
+    // height: #{($size * 2) + ($gutter * 2)}px
   > .item__content
     background-color: yellow

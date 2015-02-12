@@ -1,17 +1,17 @@
 
 /* global define */
 'use strict';
-define(['TweenMax'], function(TM, $) {
+define(['TweenLite'], function(Tween, $) {
   var explode;
   return explode = function(item) {
-    console.log(item);
-    TM.set(item, {
+    Tween.set(item, {
       transformPerspective: 600,
       opacity: 1,
       float: 'left',
       position: 'relative'
     });
-    TM.to(item, 2, {
+    Tween.to(item, 2, {
+      force3D: true,
       x: parseInt(Math.random() * 1000, 10),
       y: parseInt(Math.random() * 1000, 10),
       z: parseInt(Math.random() * 1000, 10),

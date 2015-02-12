@@ -9,17 +9,13 @@ define [
 
 ], (explode, Isotope, NewtonMode, $) ->
 
-  # Isotope.LayoutMode = NewtonMode
-
-  # console.log NewtonMode
+  Isotope.LayoutMode = NewtonMode
 
   $.bridget 'isotope', Isotope
 
   opts =
     itemSelector: '.item'
-    isResizeBound: true
-    isInitLayout: true
-    transitionDuration: '0.6s'
+    transitionDuration: '0.4s'
     layoutMode: 'newtonMode'
     sortBy: ['number']
     getSortData:
@@ -32,20 +28,24 @@ define [
     $item = $ event.currentTarget
     $parent = $item.parent()
     $parent.toggleClass 'item_grow'
-    $c.isotope 'layout'
+    $c.isotope()
     return
 
   explodeAll = (event) ->
     event.preventDefault()
     event.stopPropagation()
-    $c.isotope 'destroy'
+    $c.css(overflow: 'initial')
+      .isotope 'destroy'
     explode item for item in $items
     return
 
-  $itemsContent = $c.find '> .item > .item__content'
+  $itemsContent = $c.find '> .item:not(.item_explode) > .item__content'
   $itemsContent.on 'click', grow
 
   $items = $c.find '> .item'
   $items.filter('.item_explode').on 'click', explodeAll
+
+  # Test isotope
+  window.$c = $c
 
   return

@@ -1,27 +1,21 @@
 'use strict'
 
 define [
-    'outlayer/outlayer'
     'isotope/js/layout-mode',
-    'TweenMax'
-], (Outlayer, LayoutMode, TM) ->
+    'TimelineLite',
+    'CSSPlugin'
+], (LayoutMode, TimelineLite) ->
 
-  extend = (a, b) ->
-    for prop of b
-      a[prop] = b[prop]
-    a
+  NewtonMode = LayoutMode.create 'newtonMode'
 
-  NewtonOutlayer = Outlayer.create 'newtonOutlayer'
-
-  NewtonOutlayer::_resetLayout = ->
+  NewtonMode::_resetLayout = ->
     @x = 0
     @y = 0
     @maxY = 0
     @_getMeasurement 'gutter', 'outerWidth'
     return
 
-  NewtonOutlayer::_getItemLayoutPosition = (item) ->
-    console.trace()
+  NewtonMode::_getItemLayoutPosition = (item) ->
     item.getSize()
     itemWidth = item.size.outerWidth + @gutter
     # if this element cannot fit in the current row
@@ -36,24 +30,63 @@ define [
     @x += itemWidth
     position
 
-  NewtonOutlayer::_getContainerSize = ->
+  NewtonMode::_getContainerSize = ->
     height: @maxY
 
-  NewtonOutlayer::_positionItem = (item, x, y, isInstant) ->
+  NewtonMode::_positionItem = (item, x, y, isInstant) ->
     if isInstant
       item.goTo x, y
     else
-      current =
-        x: item.element.style.left
-        y: item.element.style.top
 
-      if(current.y != y)
-        item.goTo x, y
-      else
+      item.getPosition()
+      curX = item.position.x
+      curY = item.position.y
+
+      compareX = parseInt x, 10
+      compareY = parseInt y, 10
+      didNotMove = compareX == item.position.x and
+                   compareY == item.position.y;
+
+      item.setPosition x, y
+
+      if didNotMove and item.isTransitioning
+        item.layoutPosition()
+        return
+
+      if y == curY
         item.moveTo x, y
-    return
+      else
+        duration = parseFloat item.layout.options.transitionDuration, 10
+        animation = new TimelineLite(
+          autoRemoveChildren: true
+          smoothChildTiming: true
+          onComplete: ->
+            item.goTo x, y
+            return
+        )
+        if y > curY
+          vaiXA = item.layout.size.width - curX
+          vaiXB = -item.size.width
+        else
+          vaiXA = -item.size.width
+          vaiXB = item.layout.size.width - x
 
-  NewtonMode = LayoutMode.create 'newtonMode'
-  extend NewtonMode::, NewtonOutlayer::
+        animation
+          .to(item.element, duration / 2, {
+            force3D: true
+            css:
+              'x': vaiXA
+              'opacity': 0
+          })
+          .set(item.element, {'x': vaiXB, 'left': x, 'top': y})
+          .to(item.element, duration / 2, {
+            force3D: true
+            css:
+              'x': 0
+              'opacity': 1
+          })
+          .set(item.element, {'transform': '', '-webkit-transform': ''})
+
+    return
 
   return NewtonMode

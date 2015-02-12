@@ -1,23 +1,15 @@
 'use strict';
-define(['outlayer/outlayer', 'isotope/js/layout-mode', 'TweenMax'], function(Outlayer, LayoutMode, TM) {
-  var NewtonMode, NewtonOutlayer, extend;
-  extend = function(a, b) {
-    var prop;
-    for (prop in b) {
-      a[prop] = b[prop];
-    }
-    return a;
-  };
-  NewtonOutlayer = Outlayer.create('newtonOutlayer');
-  NewtonOutlayer.prototype._resetLayout = function() {
+define(['isotope/js/layout-mode', 'TimelineLite', 'CSSPlugin'], function(LayoutMode, TimelineLite) {
+  var NewtonMode;
+  NewtonMode = LayoutMode.create('newtonMode');
+  NewtonMode.prototype._resetLayout = function() {
     this.x = 0;
     this.y = 0;
     this.maxY = 0;
     this._getMeasurement('gutter', 'outerWidth');
   };
-  NewtonOutlayer.prototype._getItemLayoutPosition = function(item) {
+  NewtonMode.prototype._getItemLayoutPosition = function(item) {
     var containerWidth, itemWidth, position;
-    console.trace();
     item.getSize();
     itemWidth = item.size.outerWidth + this.gutter;
     containerWidth = this.isotope.size.innerWidth + this.gutter;
@@ -33,28 +25,67 @@ define(['outlayer/outlayer', 'isotope/js/layout-mode', 'TweenMax'], function(Out
     this.x += itemWidth;
     return position;
   };
-  NewtonOutlayer.prototype._getContainerSize = function() {
+  NewtonMode.prototype._getContainerSize = function() {
     return {
       height: this.maxY
     };
   };
-  NewtonOutlayer.prototype._positionItem = function(item, x, y, isInstant) {
-    var current;
+  NewtonMode.prototype._positionItem = function(item, x, y, isInstant) {
+    var animation, compareX, compareY, curX, curY, didNotMove, duration, vaiXA, vaiXB;
     if (isInstant) {
       item.goTo(x, y);
     } else {
-      current = {
-        x: item.element.style.left,
-        y: item.element.style.top
-      };
-      if (current.y !== y) {
-        item.goTo(x, y);
-      } else {
+      item.getPosition();
+      curX = item.position.x;
+      curY = item.position.y;
+      compareX = parseInt(x, 10);
+      compareY = parseInt(y, 10);
+      didNotMove = compareX === item.position.x && compareY === item.position.y;
+      item.setPosition(x, y);
+      if (didNotMove && item.isTransitioning) {
+        item.layoutPosition();
+        return;
+      }
+      if (y === curY) {
         item.moveTo(x, y);
+      } else {
+        duration = parseFloat(item.layout.options.transitionDuration, 10);
+        animation = new TimelineLite({
+          autoRemoveChildren: true,
+          smoothChildTiming: true,
+          onComplete: function() {
+            item.goTo(x, y);
+          }
+        });
+        if (y > curY) {
+          vaiXA = item.layout.size.width - curX;
+          vaiXB = -item.size.width;
+        } else {
+          vaiXA = -item.size.width;
+          vaiXB = item.layout.size.width - x;
+        }
+        animation.to(item.element, duration / 2, {
+          force3D: true,
+          css: {
+            'x': vaiXA,
+            'opacity': 0
+          }
+        }).set(item.element, {
+          'x': vaiXB,
+          'left': x,
+          'top': y
+        }).to(item.element, duration / 2, {
+          force3D: true,
+          css: {
+            'x': 0,
+            'opacity': 1
+          }
+        }).set(item.element, {
+          'transform': '',
+          '-webkit-transform': ''
+        });
       }
     }
   };
-  NewtonMode = LayoutMode.create('newtonMode');
-  extend(NewtonMode.prototype, NewtonOutlayer.prototype);
   return NewtonMode;
 });

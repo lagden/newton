@@ -6,7 +6,9 @@ define('config', function() {
       app: '../app',
       templates: '../templates',
       support: '../support',
-      TweenMax: './gsap/src/uncompressed/TweenMax'
+      TweenLite: './gsap/src/uncompressed/TweenLite',
+      TimelineLite: './gsap/src/uncompressed/TimelineLite',
+      CSSPlugin: './gsap/src/uncompressed/plugins/CSSPlugin'
     }
   });
 });

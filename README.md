@@ -5,9 +5,9 @@ Isotope Layout
 
 ## TODO
 
-- [ ] Fork no isotope
-- [ ] add no `layout-mode.js` na linha 32 - `'_positionItem',`
-- [ ] no `isotope.js` na linha 450
+- [x] Fork no isotope
+- [x] add no `layout-mode.js` na linha 32 - `'_positionItem',`
+- [x] no `isotope.js` na linha 450
 
 ```javascript
 Isotope.prototype._positionItem = function(item, x, y, isInstant) {
@@ -15,7 +15,8 @@ Isotope.prototype._positionItem = function(item, x, y, isInstant) {
 };
 ```
 
-- [ ] trocar o bower para lagden/isotope
+- [x] trocar o bower para lagden/isotope
+- [x] Teste da animação usando GSAP
 
 ## Author
 

@@ -13,14 +13,14 @@ html
     #container
       - for (var x = 0; x < 20; x++)
         - if (x === 10 || x === 12 || x === 9 || x === 5)
-          .item.item_double
+          .item.item_double(data-pos='#{x}')
             .item__content
         - else if (x === 3)
-          .item.item_explode
+          .item.item_explode(data-pos='#{x}')
             .item__content
               | Don't
               br
               | push
         - else
-          .item
+          .item(data-pos='#{x}')
             .item__content
