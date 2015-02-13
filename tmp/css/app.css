@@ -1214,9 +1214,7 @@ body {
 
 #container {
   width: 100%;
-  background: gray;
-  position: relative;
-  overflow: hidden;
+  background: brown;
 }
 
 .item {
@@ -1235,7 +1233,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: blue;
-  transition: width 0.5s, height 0.5s, background-color 0.5s;
+  transition: width 0.4s, height 0.4s, background-color 0.4s;
 }
 
 .item_double,

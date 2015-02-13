@@ -1,6 +1,6 @@
 'use strict';
 define(['app/explode', 'isotope/js/isotope', 'support/newton', 'jquery', 'jquery-bridget/jquery.bridget'], function(explode, Isotope, NewtonMode, $) {
-  var $c, $items, $itemsContent, explodeAll, grow, opts;
+  var $c, $items, $itemsContent, explodeAll, grow, isGrowing, opts;
   Isotope.LayoutMode = NewtonMode;
   $.bridget('isotope', Isotope);
   opts = {
@@ -12,14 +12,21 @@ define(['app/explode', 'isotope/js/isotope', 'support/newton', 'jquery', 'jquery
       number: '[data-pos] parseInt'
     }
   };
+  isGrowing = false;
   $c = $('#container');
   $c.isotope(opts);
+  $c.isotope('on', 'layoutComplete', function() {
+    return isGrowing = false;
+  });
   grow = function(event) {
     var $item, $parent;
-    $item = $(event.currentTarget);
-    $parent = $item.parent();
-    $parent.toggleClass('item_grow');
-    $c.isotope();
+    if (isGrowing === false) {
+      isGrowing = true;
+      $item = $(event.currentTarget);
+      $parent = $item.parent();
+      $parent.toggleClass('item_grow');
+      $c.isotope();
+    }
   };
   explodeAll = function(event) {
     var item, _i, _len;

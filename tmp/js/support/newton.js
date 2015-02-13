@@ -55,6 +55,7 @@ define(['isotope/js/layout-mode', 'TimelineLite', 'CSSPlugin'], function(LayoutM
           smoothChildTiming: true,
           onComplete: function() {
             item.goTo(x, y);
+            item.emitEvent('transitionEnd', [item]);
           }
         });
         if (y > curY) {
@@ -68,7 +69,8 @@ define(['isotope/js/layout-mode', 'TimelineLite', 'CSSPlugin'], function(LayoutM
           force3D: true,
           css: {
             'x': vaiXA,
-            'opacity': 0
+            'opacity': 0,
+            'clearProps': 'transform,matrix'
           }
         }).set(item.element, {
           'x': vaiXB,
@@ -78,11 +80,9 @@ define(['isotope/js/layout-mode', 'TimelineLite', 'CSSPlugin'], function(LayoutM
           force3D: true,
           css: {
             'x': 0,
-            'opacity': 1
+            'opacity': 1,
+            'clearProps': 'transform,matrix,opacity'
           }
-        }).set(item.element, {
-          'transform': '',
-          '-webkit-transform': ''
         });
       }
     }

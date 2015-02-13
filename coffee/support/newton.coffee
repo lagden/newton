@@ -62,6 +62,7 @@ define [
           smoothChildTiming: true
           onComplete: ->
             item.goTo x, y
+            item.emitEvent 'transitionEnd', [ item ]
             return
         )
         if y > curY
@@ -77,6 +78,7 @@ define [
             css:
               'x': vaiXA
               'opacity': 0
+              'clearProps': 'transform,matrix'
           })
           .set(item.element, {'x': vaiXB, 'left': x, 'top': y})
           .to(item.element, duration / 2, {
@@ -84,8 +86,8 @@ define [
             css:
               'x': 0
               'opacity': 1
+              'clearProps': 'transform,matrix,opacity'
           })
-          .set(item.element, {'transform': '', '-webkit-transform': ''})
 
     return
 

@@ -21,14 +21,20 @@ define [
     getSortData:
       number: '[data-pos] parseInt'
 
+  isGrowing = false
+
   $c = $ '#container'
   $c.isotope opts
+  $c.isotope 'on', 'layoutComplete', ->
+    isGrowing = false
 
   grow = (event) ->
-    $item = $ event.currentTarget
-    $parent = $item.parent()
-    $parent.toggleClass 'item_grow'
-    $c.isotope()
+    if isGrowing is false
+      isGrowing = true
+      $item = $ event.currentTarget
+      $parent = $item.parent()
+      $parent.toggleClass 'item_grow'
+      $c.isotope()
     return
 
   explodeAll = (event) ->
