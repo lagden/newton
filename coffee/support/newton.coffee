@@ -45,7 +45,7 @@ define [
       compareX = parseInt x, 10
       compareY = parseInt y, 10
       didNotMove = compareX == item.position.x and
-                   compareY == item.position.y;
+                   compareY == item.position.y
 
       item.setPosition x, y
 

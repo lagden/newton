@@ -40,8 +40,7 @@ define [
   explodeAll = (event) ->
     event.preventDefault()
     event.stopPropagation()
-    $c.css(overflow: 'initial')
-      .isotope 'destroy'
+    $c.isotope 'destroy'
     explode item for item in $items
     return
 

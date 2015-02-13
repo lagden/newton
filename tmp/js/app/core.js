@@ -32,9 +32,7 @@ define(['app/explode', 'isotope/js/isotope', 'support/newton', 'jquery', 'jquery
     var item, _i, _len;
     event.preventDefault();
     event.stopPropagation();
-    $c.css({
-      overflow: 'initial'
-    }).isotope('destroy');
+    $c.isotope('destroy');
     for (_i = 0, _len = $items.length; _i < _len; _i++) {
       item = $items[_i];
       explode(item);

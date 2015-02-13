@@ -21,12 +21,16 @@ body
 $transitionDuration: 0.4
 
 #container
-  @extend .cf
-  width: 100%
-  background: brown
+  margin: 0 auto
+  $cc: 3
+  @while $cc <= 9
+    $b: $cc * 110
+    +breakpoint(#{$b}px)
+      width: #{$b}px
+    $cc: $cc + 1
 
 $gutter: 5
-$size: 120 - ($gutter * 2)
+$size: 110 - ($gutter * 2)
 
 .item
   margin: #{$gutter}px

@@ -40,7 +40,7 @@
     $list: Consolas, "Liberation Mono", Courier, monospace
     font-family: join($prepend, $list, comma)
 
-// Placeholder text
+// Placeholder
 =placeholder($color: $placeholderText)
     &:-moz-placeholder
         color: $color
@@ -79,7 +79,19 @@
                     image: $url-retina
                     size: $width $height
 
-// keyframes mixin
+// Keyframes
 =keyframes($name)
     @keyframes #{$name}
         @content
+
+// Media Queries
+=breakpoint($min, $max: null, $orientation: null)
+    @if $min and $max and $orientation
+        @media screen and (min-width: $min) and (max-width: $max) and (orientation: $orientation)
+            @content
+    @else if $min and $max
+        @media screen and (min-width: $min) and (max-width: $max)
+            @content
+    @else
+        @media screen and (min-width: $min)
+            @content

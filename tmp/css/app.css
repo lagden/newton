@@ -517,7 +517,7 @@ select[multiple] {
   display: inline-block;
 }
 
-.cf:after, #container:after {
+.cf:after {
   content: "";
   display: table;
   clear: both;
@@ -1213,8 +1213,42 @@ body {
 }
 
 #container {
-  width: 100%;
-  background: brown;
+  margin: 0 auto;
+}
+@media screen and (min-width: 330px) {
+  #container {
+    width: 330px;
+  }
+}
+@media screen and (min-width: 440px) {
+  #container {
+    width: 440px;
+  }
+}
+@media screen and (min-width: 550px) {
+  #container {
+    width: 550px;
+  }
+}
+@media screen and (min-width: 660px) {
+  #container {
+    width: 660px;
+  }
+}
+@media screen and (min-width: 770px) {
+  #container {
+    width: 770px;
+  }
+}
+@media screen and (min-width: 880px) {
+  #container {
+    width: 880px;
+  }
+}
+@media screen and (min-width: 990px) {
+  #container {
+    width: 990px;
+  }
 }
 
 .item {
@@ -1224,8 +1258,8 @@ body {
 
 .item,
 .item__content {
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
 }
 
 .item__content {
@@ -1238,7 +1272,7 @@ body {
 
 .item_double,
 .item_double > .item__content {
-  width: 230px;
+  width: 210px;
 }
 .item_double > .item__content {
   background-color: green;
@@ -1253,7 +1287,7 @@ body {
 
 .item_grow,
 .item_grow > .item__content {
-  width: 350px;
+  width: 320px;
 }
 .item_grow > .item__content {
   background-color: yellow;
