@@ -28,7 +28,7 @@
     ".*",
     "config.rb",
     "Gruntfile.coffee",
-    "package.json"
-    "README.md",
+    "package.json",
+    "README.md"
   ]
 }
