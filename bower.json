@@ -1,9 +1,34 @@
 {
   "name": "newton-mode",
+  "title": "Newton Mode",
+  "description": "Isotope Layout Mode",
   "version": "0.0.1",
+  "author": "Thiago Lagden <me@lagden.in>",
+  "keyword": [
+    "isotope",
+    "layout",
+    "mode"
+  ],
   "dependencies": {
     "gsap": "~1.15.1",
     "isotope": "lagden/isotope#0c1742d5e3",
     "jquery-bridget": "~1.1.0"
-  }
+  },
+  "main": [
+    "dist/newton.js"
+  ],
+  "ignore": [
+    "bin",
+    "coffee",
+    "dev",
+    "build",
+    "jade",
+    "sass",
+    "tmp",
+    ".*",
+    "config.rb",
+    "Gruntfile.coffee",
+    "package.json"
+    "README.md",
+  ]
 }

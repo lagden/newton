@@ -12,6 +12,7 @@ module.exports = (grunt) ->
 
     project:
       prod:   'build'
+      dist:   'dist'
       dev:    'dev'
       tmp:    'tmp'
       coffee: 'coffee'
@@ -36,7 +37,7 @@ module.exports = (grunt) ->
 
     fixmyjs:
       options:
-        jshintrc: '.jshintrc'
+        config: '.jshintrc'
         indentpref: 'spaces'
       fix:
         files: [
@@ -137,7 +138,8 @@ module.exports = (grunt) ->
         tasks: ['jade:js']
 
     clean:
-      dist: ['<%= project.prod %>']
+      prod: ['<%= project.prod %>']
+      dist: ['<%= project.dist %>']
 
     browserSync:
       dev:
@@ -231,6 +233,12 @@ module.exports = (grunt) ->
         'jade:html'
       ]
 
+    copy:
+      dist:
+        nonull: true
+        src: '<%= project.dev %>/js/support/newton.js'
+        dest: '<%= project.dist %>/newton.js'
+
   grunt.registerTask 'default', [
     'concurrent:dev'
   ]
@@ -249,6 +257,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'clean'
     'default'
+    'copy:dist'
     'jade:build'
     'requirejs'
     'cssmin'
