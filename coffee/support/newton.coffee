@@ -23,8 +23,8 @@ define [
     itemWidth = item.size.outerWidth + @gutter
     containerWidth = @isotope.size.innerWidth + @gutter
 
-    @diff = window.innerWidth - containerWidth
     @itemWidth = Math.max @itemWidth, itemWidth
+    @diff = window.innerWidth - containerWidth
 
     if @x != 0 and itemWidth + @x > containerWidth
       @x = 0
@@ -62,7 +62,7 @@ define [
         item.layoutPosition()
         return
 
-      if y == curY
+      if y == curY or x == curX
         item.moveTo x, y
       else
         console.log @diff
