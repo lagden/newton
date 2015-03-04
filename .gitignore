@@ -1,11 +1,12 @@
 .sass-cache
 node_modules
 bower_components
-build/*
-dev/js/*
-dev/css/*
+build
+dev/js
+dev/css
 dev/**/*.html
 bin
+tmp
 
 # Others
 cgi-bin
