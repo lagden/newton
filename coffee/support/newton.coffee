@@ -14,6 +14,7 @@ define [
     @maxY = 0
     @_getMeasurement 'gutter', 'outerWidth'
     @itemWidth = 0
+    @diff = 0
     return
 
   NewtonMode::_getItemLayoutPosition = (item) ->
@@ -22,6 +23,7 @@ define [
     itemWidth = item.size.outerWidth + @gutter
     containerWidth = @isotope.size.innerWidth + @gutter
 
+    @diff = window.innerWidth - containerWidth
     @itemWidth = Math.max @itemWidth, itemWidth
 
     if @x != 0 and itemWidth + @x > containerWidth
@@ -54,9 +56,6 @@ define [
       didNotMove = compareX == item.position.x and
                    compareY == item.position.y
 
-      if item.id == 26
-        console.log curX, x, @itemWidth
-
       item.setPosition x, y
 
       if didNotMove and item.isTransitioning
@@ -66,7 +65,9 @@ define [
       if y == curY
         item.moveTo x, y
       else
+        console.log @diff
         duration = parseFloat item.layout.options.transitionDuration, 10
+        latency = duration / 2
         animation = new TimelineLite
           autoRemoveChildren: true
           smoothChildTiming: true
@@ -76,21 +77,21 @@ define [
             return
 
         if y > curY
-          vaiXA = @itemWidth + item.size.width + 200
-          vaiXB = -@itemWidth - item.size.width - 200
+          vaiXA = @itemWidth + @diff
+          vaiXB = -@itemWidth - @diff
         else
-          vaiXA = -@itemWidth - item.size.width - 200
-          vaiXB =  @itemWidth + item.size.width + 200
+          vaiXA = -@itemWidth - @diff
+          vaiXB =  @itemWidth + @diff
 
         animation
-          .to(item.element, duration, {
+          .to(item.element, latency, {
             force3D: true
             css:
               'x': vaiXA
               'clearProps': 'transform,matrix'
           })
           .set(item.element, {'x': vaiXB, 'left': x, 'top': y})
-          .to(item.element, duration, {
+          .to(item.element, latency, {
             force3D: true
             css:
               'x': 0
