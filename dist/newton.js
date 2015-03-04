@@ -37,7 +37,7 @@ define([
     return { height: this.maxY };
   };
   NewtonMode.prototype._positionItem = function (item, x, y, isInstant) {
-    var animation, compareX, compareY, curX, curY, didNotMove, duration, latency, vaiXA, vaiXB;
+    var compareX, compareY, curX, curY, didNotMove;
     if (isInstant) {
       item.goTo(x, y);
     } else {
@@ -55,41 +55,7 @@ define([
       if (y === curY || x === curX) {
         item.moveTo(x, y);
       } else {
-        console.log(this.diff);
-        duration = parseFloat(item.layout.options.transitionDuration, 10);
-        latency = duration / 2;
-        animation = new TimelineLite({
-          autoRemoveChildren: true,
-          smoothChildTiming: true,
-          onComplete: function () {
-            item.goTo(x, y);
-            item.emitEvent('transitionEnd', [item]);
-          }
-        });
-        if (y > curY) {
-          vaiXA = this.itemWidth + this.diff;
-          vaiXB = -this.itemWidth - this.diff;
-        } else {
-          vaiXA = -this.itemWidth - this.diff;
-          vaiXB = this.itemWidth + this.diff;
-        }
-        animation.to(item.element, latency, {
-          force3D: true,
-          css: {
-            'x': vaiXA,
-            'clearProps': 'transform,matrix'
-          }
-        }).set(item.element, {
-          'x': vaiXB,
-          'left': x,
-          'top': y
-        }).to(item.element, latency, {
-          force3D: true,
-          css: {
-            'x': 0,
-            'clearProps': 'transform,matrix'
-          }
-        });
+        item.goTo(x, y);
       }
     }
   };

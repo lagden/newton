@@ -65,38 +65,39 @@ define [
       if y == curY or x == curX
         item.moveTo x, y
       else
-        console.log @diff
-        duration = parseFloat item.layout.options.transitionDuration, 10
-        latency = duration / 2
-        animation = new TimelineLite
-          autoRemoveChildren: true
-          smoothChildTiming: true
-          onComplete: ->
-            item.goTo x, y
-            item.emitEvent 'transitionEnd', [ item ]
-            return
+        item.goTo x, y
+        # console.log @diff
+        # duration = parseFloat item.layout.options.transitionDuration, 10
+        # latency = duration / 2
+        # animation = new TimelineLite
+        #   autoRemoveChildren: true
+        #   smoothChildTiming: true
+        #   onComplete: ->
+        #     item.goTo x, y
+        #     item.emitEvent 'transitionEnd', [ item ]
+        #     return
 
-        if y > curY
-          vaiXA = @itemWidth + @diff
-          vaiXB = -@itemWidth - @diff
-        else
-          vaiXA = -@itemWidth - @diff
-          vaiXB =  @itemWidth + @diff
+        # if y > curY
+        #   vaiXA = @itemWidth + @diff
+        #   vaiXB = -@itemWidth - @diff
+        # else
+        #   vaiXA = -@itemWidth - @diff
+        #   vaiXB =  @itemWidth + @diff
 
-        animation
-          .to(item.element, latency, {
-            force3D: true
-            css:
-              'x': vaiXA
-              'clearProps': 'transform,matrix'
-          })
-          .set(item.element, {'x': vaiXB, 'left': x, 'top': y})
-          .to(item.element, latency, {
-            force3D: true
-            css:
-              'x': 0
-              'clearProps': 'transform,matrix'
-          })
+        # animation
+        #   .to(item.element, latency, {
+        #     force3D: true
+        #     css:
+        #       'x': vaiXA
+        #       'clearProps': 'transform,matrix'
+        #   })
+        #   .set(item.element, {'x': vaiXB, 'left': x, 'top': y})
+        #   .to(item.element, latency, {
+        #     force3D: true
+        #     css:
+        #       'x': 0
+        #       'clearProps': 'transform,matrix'
+        #   })
 
     return
 
