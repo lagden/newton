@@ -11,12 +11,14 @@ define([
     this.y = 0;
     this.maxY = 0;
     this._getMeasurement('gutter', 'outerWidth');
+    this.itemWidth = 0;
   };
   NewtonMode.prototype._getItemLayoutPosition = function (item) {
     var containerWidth, itemWidth, position;
     item.getSize();
     itemWidth = item.size.outerWidth + this.gutter;
     containerWidth = this.isotope.size.innerWidth + this.gutter;
+    this.itemWidth = Math.max(this.itemWidth, itemWidth);
     if (this.x !== 0 && itemWidth + this.x > containerWidth) {
       this.x = 0;
       this.y = this.maxY;
@@ -43,6 +45,9 @@ define([
       compareX = parseInt(x, 10);
       compareY = parseInt(y, 10);
       didNotMove = compareX === item.position.x && compareY === item.position.y;
+      if (item.id === 26) {
+        console.log(curX, x, this.itemWidth);
+      }
       item.setPosition(x, y);
       if (didNotMove && item.isTransitioning) {
         item.layoutPosition();
@@ -61,29 +66,27 @@ define([
           }
         });
         if (y > curY) {
-          vaiXA = item.layout.size.width - curX;
-          vaiXB = -item.size.width;
+          vaiXA = this.itemWidth + item.size.width + 200;
+          vaiXB = -this.itemWidth - item.size.width - 200;
         } else {
-          vaiXA = -item.size.width;
-          vaiXB = item.layout.size.width - x;
+          vaiXA = -this.itemWidth - item.size.width - 200;
+          vaiXB = this.itemWidth + item.size.width + 200;
         }
-        animation.to(item.element, duration / 2, {
+        animation.to(item.element, duration, {
           force3D: true,
           css: {
             'x': vaiXA,
-            'opacity': 0,
             'clearProps': 'transform,matrix'
           }
         }).set(item.element, {
           'x': vaiXB,
           'left': x,
           'top': y
-        }).to(item.element, duration / 2, {
+        }).to(item.element, duration, {
           force3D: true,
           css: {
             'x': 0,
-            'opacity': 1,
-            'clearProps': 'transform,matrix,opacity'
+            'clearProps': 'transform,matrix'
           }
         });
       }
