@@ -19,8 +19,8 @@ define([
     item.getSize();
     itemWidth = item.size.outerWidth + this.gutter;
     containerWidth = this.isotope.size.innerWidth + this.gutter;
-    this.diff = window.innerWidth - containerWidth;
     this.itemWidth = Math.max(this.itemWidth, itemWidth);
+    this.diff = window.innerWidth - containerWidth;
     if (this.x !== 0 && itemWidth + this.x > containerWidth) {
       this.x = 0;
       this.y = this.maxY;
@@ -52,7 +52,7 @@ define([
         item.layoutPosition();
         return;
       }
-      if (y === curY) {
+      if (y === curY || x === curX) {
         item.moveTo(x, y);
       } else {
         console.log(this.diff);
