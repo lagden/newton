@@ -15,7 +15,7 @@ define [
 
   opts =
     itemSelector: '.item'
-    transitionDuration: '0.4s'
+    transitionDuration: '0.6s'
     layoutMode: 'newtonMode'
     sortBy: ['number']
     getSortData:

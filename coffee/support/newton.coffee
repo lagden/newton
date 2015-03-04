@@ -13,21 +13,28 @@ define [
     @y = 0
     @maxY = 0
     @_getMeasurement 'gutter', 'outerWidth'
+    @itemWidth = 0
     return
 
   NewtonMode::_getItemLayoutPosition = (item) ->
     item.getSize()
+
     itemWidth = item.size.outerWidth + @gutter
-    # if this element cannot fit in the current row
     containerWidth = @isotope.size.innerWidth + @gutter
+
+    @itemWidth = Math.max @itemWidth, itemWidth
+
     if @x != 0 and itemWidth + @x > containerWidth
       @x = 0
       @y = @maxY
+
     position =
       x: @x
       y: @y
-    @maxY = Math.max(@maxY, @y + item.size.outerHeight)
+
+    @maxY = Math.max @maxY, @y + item.size.outerHeight
     @x += itemWidth
+
     position
 
   NewtonMode::_getContainerSize = ->
@@ -47,6 +54,9 @@ define [
       didNotMove = compareX == item.position.x and
                    compareY == item.position.y
 
+      if item.id == 26
+        console.log curX, x, @itemWidth
+
       item.setPosition x, y
 
       if didNotMove and item.isTransitioning
@@ -57,36 +67,34 @@ define [
         item.moveTo x, y
       else
         duration = parseFloat item.layout.options.transitionDuration, 10
-        animation = new TimelineLite(
+        animation = new TimelineLite
           autoRemoveChildren: true
           smoothChildTiming: true
           onComplete: ->
             item.goTo x, y
             item.emitEvent 'transitionEnd', [ item ]
             return
-        )
+
         if y > curY
-          vaiXA = item.layout.size.width - curX
-          vaiXB = -item.size.width
+          vaiXA = @itemWidth + item.size.width + 200
+          vaiXB = -@itemWidth - item.size.width - 200
         else
-          vaiXA = -item.size.width
-          vaiXB = item.layout.size.width - x
+          vaiXA = -@itemWidth - item.size.width - 200
+          vaiXB =  @itemWidth + item.size.width + 200
 
         animation
-          .to(item.element, duration / 2, {
+          .to(item.element, duration, {
             force3D: true
             css:
               'x': vaiXA
-              'opacity': 0
               'clearProps': 'transform,matrix'
           })
           .set(item.element, {'x': vaiXB, 'left': x, 'top': y})
-          .to(item.element, duration / 2, {
+          .to(item.element, duration, {
             force3D: true
             css:
               'x': 0
-              'opacity': 1
-              'clearProps': 'transform,matrix,opacity'
+              'clearProps': 'transform,matrix'
           })
 
     return

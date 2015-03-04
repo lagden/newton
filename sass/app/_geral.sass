@@ -18,7 +18,7 @@ html
 body
   position: relative
 
-$transitionDuration: 0.4
+$transitionDuration: 0.6
 
 #container
   margin: 0 auto
@@ -48,12 +48,12 @@ $size: 110 - ($gutter * 2)
   background-color: blue
   transition: width #{$transitionDuration}s, height #{$transitionDuration}s, background-color #{$transitionDuration}s
 
-.item_double
-  &,
-  > .item__content
-    width: #{($size * 2) + ($gutter * 2)}px
-  > .item__content
-    background-color: green
+// .item_double
+//   &,
+//   > .item__content
+//     width: #{($size * 2) + ($gutter * 2)}px
+//   > .item__content
+//     background-color: green
 
 .item_explode
   > .item__content

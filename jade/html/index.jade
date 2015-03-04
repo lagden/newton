@@ -16,6 +16,9 @@ html
         - if (x === 10 || x === 12 || x === 9 || x === 5)
           .item.item_double(data-pos='#{x}')
             .item__content
+        - else if (x === 6)
+          .item(data-pos='#{x}')
+            .item__content.bg-color_green
         - else if (x === 3)
           .item.item_explode(data-pos='#{x}')
             .item__content
